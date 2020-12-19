@@ -1,0 +1,2 @@
+INSERT INTO CHARACTER (name,description,modified) VALUES ('Character1', 'Character1 description', CURRENT_TIMESTAMP);
+INSERT INTO CHARACTER (name,description,modified) VALUES ('Character2', 'Character2 description', CURRENT_TIMESTAMP);
