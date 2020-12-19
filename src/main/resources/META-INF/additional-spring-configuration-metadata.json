@@ -1,0 +1,5 @@
+{"properties": [{
+  "name": "springdoc.version",
+  "type": "java.lang.String",
+  "description": "springdoc version"
+}]}
