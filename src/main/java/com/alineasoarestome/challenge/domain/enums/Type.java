@@ -1,5 +1,7 @@
 package com.alineasoarestome.challenge.domain.enums;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+
 import lombok.Getter;
 
 @Getter
@@ -9,6 +11,7 @@ public enum Type {
     COVER("cover"),
     TEXT_STORY("story");
 
+    @JsonValue
     private String descricao;
     
     Type(String descricao) {
