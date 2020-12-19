@@ -3,7 +3,6 @@ package com.alineasoarestome.challenge.domain.enums;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 import lombok.Getter;
-import lombok.ToString;
 
 @Getter
 public enum Format {

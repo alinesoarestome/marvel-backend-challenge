@@ -18,6 +18,7 @@ import javax.persistence.TemporalType;
 import com.alineasoarestome.challenge.domain.enums.Type;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -35,20 +36,25 @@ public class Story implements Serializable {
      */
     private static final long serialVersionUID = 1L;
 
+    @Schema(description = "The unique ID of the story resource.", required = true)
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Schema(description = "The story title.")
     @Column(length = 80, nullable = false)
     private String title;
 
+    @Schema(description = "A short description of the story.")
     @Column(columnDefinition = "text")
     private String description;
 
+    @Schema(description = "The canonical URL identifier for this resource.")
     @Column(nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date modified;
 
+    @Schema(description = "The story type e.g. interior story, cover, text story.")
     @Column(name = "type", length = 15)
     @Enumerated(EnumType.STRING)
     private Type type;

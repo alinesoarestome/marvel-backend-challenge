@@ -20,11 +20,19 @@ import com.alineasoarestome.challenge.service.EventService;
 import com.alineasoarestome.challenge.service.SerieService;
 import com.alineasoarestome.challenge.service.StoryService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
 @RequestMapping(value = "/v1/public/characters")
+@Tag(name = "character", description = "the Character API")
 public class CharacterResource {
 
     @Autowired
@@ -42,7 +50,9 @@ public class CharacterResource {
     @Autowired
     private StoryService storyService;
 
-    @GetMapping
+    @Operation(summary = "Fetches lists of character", tags = { "character" })
+    @ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Successful operation") })
+    @GetMapping(produces = { "application/json" })
     public ResponseEntity<List<Character>> listAll() {
 	log.info("listAll(): fetching characters.");
 
@@ -53,8 +63,12 @@ public class CharacterResource {
 	return ResponseEntity.ok(characters);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Character> getById(@PathVariable("id") Integer id) {
+    @Operation(summary = "Fetches a single character by id", tags = { "character" })
+    @ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Successful operation"),
+	    @ApiResponse(responseCode = "404", description = "Character not found", content = @Content(schema = @Schema(hidden = true))) })
+    @GetMapping(value = "/{id}", produces = { "application/json" })
+    public ResponseEntity<Character> getById(
+	    @Parameter(description = "A single character id.", required = true) @PathVariable("id") Integer id) {
 	log.info("getById(): fetching character [id = " + id + "].");
 
 	Character character = characterService.getById(id);
@@ -64,8 +78,11 @@ public class CharacterResource {
 	return ResponseEntity.ok(character);
     }
 
-    @GetMapping("/{id}/comics")
-    public ResponseEntity<List<Comic>> getComicsById(@PathVariable("id") Integer id) {
+    @Operation(summary = "Fetches lists of comics filtered by a character id.", tags = { "character" })
+    @ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Successful operation") })
+    @GetMapping(value = "/{id}/comics", produces = { "application/json" })
+    public ResponseEntity<List<Comic>> getComicsById(
+	    @Parameter(description = "A single character id.", required = true) @PathVariable("id") Integer id) {
 	log.info("getComicsById(): fetching comics by character [id = " + id + "].");
 
 	List<Comic> comics = comicService.listAllByCharacterId(id);
@@ -75,8 +92,11 @@ public class CharacterResource {
 	return ResponseEntity.ok(comics);
     }
 
-    @GetMapping("/{id}/events")
-    public ResponseEntity<List<Event>> getEventById(@PathVariable("id") Integer id) {
+    @Operation(summary = "Fetches lists of events filtered by a character id.", tags = { "character" })
+    @ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Successful operation") })
+    @GetMapping(value = "/{id}/events", produces = { "application/json" })
+    public ResponseEntity<List<Event>> getEventById(
+	    @Parameter(description = "A single character id.", required = true) @PathVariable("id") Integer id) {
 	log.info("getEventById(): fetching events by character [id = " + id + "].");
 
 	List<Event> events = eventService.listAllByCharacterId(id);
@@ -86,8 +106,11 @@ public class CharacterResource {
 	return ResponseEntity.ok(events);
     }
 
-    @GetMapping("/{id}/series")
-    public ResponseEntity<List<Serie>> getSeriesById(@PathVariable("id") Integer id) {
+    @Operation(summary = "Fetches lists of series filtered by a character id.", tags = { "character" })
+    @ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Successful operation") })
+    @GetMapping(value = "/{id}/series", produces = { "application/json" })
+    public ResponseEntity<List<Serie>> getSeriesById(
+	    @Parameter(description = "A single character id.", required = true) @PathVariable("id") Integer id) {
 	log.info("getSeriesById(): fetching series by character [id = " + id + "].");
 
 	List<Serie> series = serieService.listAllByCharacterId(id);
@@ -97,8 +120,11 @@ public class CharacterResource {
 	return ResponseEntity.ok(series);
     }
 
-    @GetMapping("/{id}/stories")
-    public ResponseEntity<List<Story>> getStoriesById(@PathVariable("id") Integer id) {
+    @Operation(summary = "Fetches lists of stories filtered by a character id.", tags = { "Character Resource" })
+    @ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Successful operation") })
+    @GetMapping(value = "/{id}/stories", produces = { "application/json" })
+    public ResponseEntity<List<Story>> getStoriesById(
+	    @Parameter(description = "A single character id.", required = true) @PathVariable("id") Integer id) {
 	log.info("getStoriesById(): fetching stories by character [id = " + id + "].");
 
 	List<Story> stories = storyService.listAllByCharacterId(id);
