@@ -34,8 +34,8 @@ public class CharacterServiceTests {
     public void listAllTest() {
 
 	List<Character> characters = new ArrayList<Character>();
-	characters.add(new Character(1, "Hulk", "a green-skinned hero", new Date(), null, null, null));
-	characters.add(new Character(2, "Deadpool", "a highly trained assassin and mercenary", new Date(), null, null, null));
+	characters.add(new Character(1, "Hulk", "a green-skinned hero", new Date(), null, null, null, null));
+	characters.add(new Character(2, "Deadpool", "a highly trained assassin and mercenary", new Date(), null, null, null, null));
 
 	when(characterRepository.findAll()).thenReturn(characters);
 
@@ -49,7 +49,7 @@ public class CharacterServiceTests {
     @Test
     public void getCharacterByIdTest() {
 	Optional<Character> character = Optional
-		.ofNullable(new Character(1, "Hulk", "a green-skinned hero", new Date(), null, null, null));
+		.ofNullable(new Character(1, "Hulk", "a green-skinned hero", new Date(), null, null, null, null));
 
 	when(characterRepository.findById(1)).thenReturn(character);
 
