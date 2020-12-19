@@ -4,8 +4,9 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
-import javax.persistence.Convert;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,7 +15,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import com.alineasoarestome.challenge.domain.converter.FormatConverter;
 import com.alineasoarestome.challenge.domain.enums.Format;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -52,7 +52,7 @@ public class Comic implements Serializable {
     private String description;
     
     @Column(name = "format", length = 15)
-    @Convert(converter = FormatConverter.class)
+    @Enumerated(EnumType.STRING)
     private Format format;
 
     @Column(nullable = false)
