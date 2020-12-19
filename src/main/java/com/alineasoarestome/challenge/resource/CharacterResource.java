@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alineasoarestome.challenge.domain.Character;
+import com.alineasoarestome.challenge.domain.Comic;
 import com.alineasoarestome.challenge.service.CharacterService;
+import com.alineasoarestome.challenge.service.ComicService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -21,6 +23,9 @@ public class CharacterResource {
 
     @Autowired
     private CharacterService characterService;
+    
+    @Autowired 
+    private ComicService comicService;
 
     @GetMapping
     public ResponseEntity<List<Character>> listAll() {
@@ -35,7 +40,7 @@ public class CharacterResource {
 
     @GetMapping("/{id}")
     public ResponseEntity<Character> getById(@PathVariable("id") Integer id) {
-	log.info("getById(): fetching character. [id = " +id+ "]");
+	log.info("getById(): fetching character [id = " +id+ "].");
 
 	Character character = characterService.getById(id);
 	
@@ -45,4 +50,15 @@ public class CharacterResource {
 	return ResponseEntity.ok(character);
     }
 
+
+    @GetMapping("/{id}/comics")
+    public ResponseEntity<List<Comic>> getComicsById(@PathVariable("id") Integer id) {
+	log.info("getComicsById(): fetching comics by character [id = " +id+ "].");
+	
+	List<Comic> comics = comicService.listAllByCharacterId(id);
+	
+	log.info("getComicsById(): comics returned.");
+	
+	return ResponseEntity.ok(comics);
+    }
 }
