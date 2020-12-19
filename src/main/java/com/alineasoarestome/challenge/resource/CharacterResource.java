@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.alineasoarestome.challenge.domain.Character;
 import com.alineasoarestome.challenge.domain.Comic;
 import com.alineasoarestome.challenge.domain.Event;
+import com.alineasoarestome.challenge.domain.Serie;
 import com.alineasoarestome.challenge.service.CharacterService;
 import com.alineasoarestome.challenge.service.ComicService;
 import com.alineasoarestome.challenge.service.EventService;
+import com.alineasoarestome.challenge.service.SerieService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -31,6 +33,10 @@ public class CharacterResource {
     
     @Autowired 
     private EventService eventService;
+    
+    @Autowired 
+    private SerieService serieService;
+
 
     @GetMapping
     public ResponseEntity<List<Character>> listAll() {
@@ -76,5 +82,16 @@ public class CharacterResource {
 	log.info("getComicsById(): " + events.size() + " events returned.");
 	
 	return ResponseEntity.ok(events);
+    }
+    
+    @GetMapping("/{id}/series")
+    public ResponseEntity<List<Serie>> getSeriesById(@PathVariable("id") Integer id) {
+	log.info("getComicsById(): fetching series by character [id = " +id+ "].");
+	
+	List<Serie> series = serieService.listAllByCharacterId(id);
+	
+	log.info("getComicsById(): " + series.size() + " events returned.");
+	
+	return ResponseEntity.ok(series);
     }
 }

@@ -1,56 +1,60 @@
 package com.alineasoarestome.challenge.domain;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+
 @Entity
-@Getter
-@Setter
+@Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Character implements Serializable {
+public class Serie implements Serializable {
 
     /**
      * 
      */
     private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(length = 60, nullable = false)
-    private String name;
+    @Column(length = 80, nullable = false)
+    private String title;
 
     @Column(columnDefinition = "text")
     private String description;
+    
+    @Column(length = 80)
+    private String rating;
 
     @Column(nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
     private Date modified;
+    
+    @Column(name = "start_year")
+    private Integer startYear;
+    
+    @Column(name = "end_year")
+    private Integer endYear;
 
-    @OneToMany(mappedBy = "character")
-    private List<Comic> comics = new ArrayList<Comic>();
-
-    @OneToMany(mappedBy = "character")
-    private List<Event> events = new ArrayList<Event>();
-
-    @OneToMany(mappedBy = "character")
-    private List<Serie> series = new ArrayList<Serie>();
+    @Getter(onMethod = @__({@JsonIgnore}))
+    @ManyToOne
+    @JoinColumn(name = "character_id", nullable = false)
+    private Character character;
 
 }
