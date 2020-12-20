@@ -7,10 +7,24 @@ Technical challenge submitted to Dextra
 ## Prerequisites
   - Maven 3
   - Java 11
-  - Lombok
+  - Lombok install on IDE
  
 ## How to use?
 
-  - git clone https://github.com/alinesoarestome/marvel-backend-challenge.git
-  - mvn clean package
-
+ - Clone repository
+  ```
+  $ git clone https://github.com/alinesoarestome/marvel-backend-challenge.git
+  ```
+  - Build
+  ```
+  $ mvn clean package
+  ```
+  - Tests
+  ```
+  $ mvn test
+  ```
+  - Run
+  ```
+  $ mvn spring-boot:run
+  ```
+Swagger interface to access the endpoints: http://localhost:3000/swagger-ui/index.html
