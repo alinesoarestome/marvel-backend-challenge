@@ -6,3 +6,6 @@ jdk:
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
+  
+script:  
+  mvn install -DskipTests=false -Dmaven.javadoc.skip=true -B -V
