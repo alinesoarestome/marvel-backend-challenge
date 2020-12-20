@@ -20,6 +20,7 @@ public class ApiError implements Serializable {
     
     public static final String CHARACTER_NOT_FOUND = "Character not found.";
     public static final String UNEXPECTED_ERROR = "Unexpected error.";
+    public static final String INVALID_VALUE_FILTER = "Invalid value passed to filter.";
     
     private int code;
     private String msg;

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.alineasoarestome.challenge.domain.Character;
 import com.alineasoarestome.challenge.exception.ApiError;
-import com.alineasoarestome.challenge.exception.NotFoundException;
+import com.alineasoarestome.challenge.exception.RecordNotFoundException;
 import com.alineasoarestome.challenge.repository.CharacterRepository;
 
 @Service
@@ -25,7 +25,7 @@ public class CharacterService {
     public Character getById(Integer id) {
 	Optional<Character> result = characterRepository.findById(id);
 
-	return result.orElseThrow(() -> new NotFoundException(ApiError.CHARACTER_NOT_FOUND));
+	return result.orElseThrow(() -> new RecordNotFoundException(ApiError.CHARACTER_NOT_FOUND));
     }
 
 }
