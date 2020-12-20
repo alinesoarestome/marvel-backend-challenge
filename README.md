@@ -36,4 +36,19 @@ Spring Boot-based project to reimplement characters endpoints from Marvel API.
   ```
   $ mvn spring-boot:run
   ```
-Swagger interface to access the endpoints: http://localhost:3000/swagger-ui/index.html
+  - API Documentation
+  
+    Swagger interface to access the endpoints: ```http://localhost:3000/swagger-ui/index.html```
+    
+  - Access temporary Database 
+  
+    Database instance will be automatically populated by data.sql file and it will be available after app successful initialization.
+  
+  ```
+  Server: http://localhost:3000/h2
+  Driver Class: org.h2.Driver
+  JDBC URL: jdbc:h2:mem:testdb
+  User Name: sa
+  Password: password
+  ```
+  
