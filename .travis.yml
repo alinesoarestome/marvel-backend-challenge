@@ -1,0 +1,15 @@
+language: java
+dist: xenial
+os: linux
+
+jdk:
+  - oraclejdk11
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
+  
+script:  
+  mvn install -DskipTests=false -Dmaven.javadoc.skip=true -B -V
+
+before_install:
+  - chmod +x mvnw
