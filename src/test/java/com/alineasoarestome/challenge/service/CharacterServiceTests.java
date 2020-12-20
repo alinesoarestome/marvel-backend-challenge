@@ -31,7 +31,7 @@ public class CharacterServiceTests {
     private CharacterService characterService;
 
     @Test
-    public void listAllTest() {
+    public void shouldReturnAllCharacters() {
 
 	List<Character> characters = new ArrayList<Character>();
 	characters.add(new Character(1, "Hulk", "a green-skinned hero", new Date(), null, null, null, null));
@@ -47,9 +47,8 @@ public class CharacterServiceTests {
     }
 
     @Test
-    public void getCharacterByIdTest() {
-	Optional<Character> character = Optional
-		.ofNullable(new Character(1, "Hulk", "a green-skinned hero", new Date(), null, null, null, null));
+    public void shouldReturnOneCharacter() {
+	Optional<Character> character = Optional.ofNullable(new Character(1, "Hulk", "a green-skinned hero", new Date(), null, null, null, null));
 
 	when(characterRepository.findById(1)).thenReturn(character);
 
@@ -61,13 +60,11 @@ public class CharacterServiceTests {
     }
 
     @Test
-    public void notFoundCharacterTest() {
+    public void shoutReturnNotFoundException() {
 
 	when(characterRepository.findById(1)).thenThrow(new NotFoundException("Not found exception"));
 
-	assertThrows(NotFoundException.class, () -> {
-	    characterService.getById(1);
-	});
+	assertThrows(NotFoundException.class, () -> { characterService.getById(1); });
 
     }
 }

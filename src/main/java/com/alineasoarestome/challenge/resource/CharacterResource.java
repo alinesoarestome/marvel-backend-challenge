@@ -3,7 +3,6 @@ package com.alineasoarestome.challenge.resource;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,10 +21,6 @@ import com.alineasoarestome.challenge.service.StoryService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 
@@ -35,39 +30,41 @@ import lombok.extern.slf4j.Slf4j;
 @Tag(name = "character", description = "the Character API")
 public class CharacterResource {
 
-    @Autowired
     private CharacterService characterService;
-
-    @Autowired
     private ComicService comicService;
-
-    @Autowired
     private EventService eventService;
-
-    @Autowired
     private SerieService serieService;
-
-    @Autowired
     private StoryService storyService;
 
+    public CharacterResource() {
+	super();
+    }
+
+    @Autowired
+    public CharacterResource(CharacterService characterService, ComicService comicService, EventService eventService,
+	    SerieService serieService, StoryService storyService) {
+	this.characterService = characterService;
+	this.comicService = comicService;
+	this.eventService = eventService;
+	this.serieService = serieService;
+	this.storyService = storyService;
+    }
+
     @Operation(summary = "Fetches lists of character", tags = { "character" })
-    @ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Successful operation") })
     @GetMapping(produces = { "application/json" })
-    public ResponseEntity<List<Character>> listAll() {
+    public List<Character> listAll() {
 	log.info("listAll(): fetching characters.");
 
 	List<Character> characters = characterService.listAll();
 
 	log.info("listAll(): " + characters.size() + " characters returned.");
 
-	return ResponseEntity.ok(characters);
+	return characters;
     }
 
     @Operation(summary = "Fetches a single character by id", tags = { "character" })
-    @ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Successful operation"),
-	    @ApiResponse(responseCode = "404", description = "Character not found", content = @Content(schema = @Schema(hidden = true))) })
     @GetMapping(value = "/{id}", produces = { "application/json" })
-    public ResponseEntity<Character> getById(
+    public Character getById(
 	    @Parameter(description = "A single character id.", required = true) @PathVariable("id") Integer id) {
 	log.info("getById(): fetching character [id = " + id + "].");
 
@@ -75,13 +72,12 @@ public class CharacterResource {
 
 	log.info("getById(): character returned.");
 
-	return ResponseEntity.ok(character);
+	return character;
     }
 
     @Operation(summary = "Fetches lists of comics filtered by a character id.", tags = { "character" })
-    @ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Successful operation") })
     @GetMapping(value = "/{id}/comics", produces = { "application/json" })
-    public ResponseEntity<List<Comic>> getComicsById(
+    public List<Comic> getComicsById(
 	    @Parameter(description = "A single character id.", required = true) @PathVariable("id") Integer id) {
 	log.info("getComicsById(): fetching comics by character [id = " + id + "].");
 
@@ -89,13 +85,12 @@ public class CharacterResource {
 
 	log.info("getComicsById(): " + comics.size() + " comics returned.");
 
-	return ResponseEntity.ok(comics);
+	return comics;
     }
 
     @Operation(summary = "Fetches lists of events filtered by a character id.", tags = { "character" })
-    @ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Successful operation") })
     @GetMapping(value = "/{id}/events", produces = { "application/json" })
-    public ResponseEntity<List<Event>> getEventById(
+    public List<Event> getEventById(
 	    @Parameter(description = "A single character id.", required = true) @PathVariable("id") Integer id) {
 	log.info("getEventById(): fetching events by character [id = " + id + "].");
 
@@ -103,13 +98,12 @@ public class CharacterResource {
 
 	log.info("getEventById(): " + events.size() + " events returned.");
 
-	return ResponseEntity.ok(events);
+	return events;
     }
 
     @Operation(summary = "Fetches lists of series filtered by a character id.", tags = { "character" })
-    @ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Successful operation") })
     @GetMapping(value = "/{id}/series", produces = { "application/json" })
-    public ResponseEntity<List<Serie>> getSeriesById(
+    public List<Serie> getSeriesById(
 	    @Parameter(description = "A single character id.", required = true) @PathVariable("id") Integer id) {
 	log.info("getSeriesById(): fetching series by character [id = " + id + "].");
 
@@ -117,13 +111,12 @@ public class CharacterResource {
 
 	log.info("getSeriesById(): " + series.size() + " events returned.");
 
-	return ResponseEntity.ok(series);
+	return series;
     }
 
     @Operation(summary = "Fetches lists of stories filtered by a character id.", tags = { "Character Resource" })
-    @ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Successful operation") })
     @GetMapping(value = "/{id}/stories", produces = { "application/json" })
-    public ResponseEntity<List<Story>> getStoriesById(
+    public List<Story> getStoriesById(
 	    @Parameter(description = "A single character id.", required = true) @PathVariable("id") Integer id) {
 	log.info("getStoriesById(): fetching stories by character [id = " + id + "].");
 
@@ -131,6 +124,6 @@ public class CharacterResource {
 
 	log.info("getStoriesById(): " + stories.size() + " events returned.");
 
-	return ResponseEntity.ok(stories);
+	return stories;
     }
 }
