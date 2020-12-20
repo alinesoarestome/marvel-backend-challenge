@@ -18,7 +18,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.alineasoarestome.challenge.domain.Character;
-import com.alineasoarestome.challenge.exception.NotFoundException;
+import com.alineasoarestome.challenge.exception.RecordNotFoundException;
 import com.alineasoarestome.challenge.repository.CharacterRepository;
 
 @ExtendWith(MockitoExtension.class)
@@ -62,9 +62,9 @@ public class CharacterServiceTests {
     @Test
     public void shoutReturnNotFoundException() {
 
-	when(characterRepository.findById(1)).thenThrow(new NotFoundException("Not found exception"));
+	when(characterRepository.findById(1)).thenThrow(new RecordNotFoundException("Not found exception"));
 
-	assertThrows(NotFoundException.class, () -> { characterService.getById(1); });
+	assertThrows(RecordNotFoundException.class, () -> { characterService.getById(1); });
 
     }
 }

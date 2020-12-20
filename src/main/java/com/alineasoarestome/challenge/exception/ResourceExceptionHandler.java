@@ -16,19 +16,19 @@ import lombok.extern.slf4j.Slf4j;
 @RestControllerAdvice
 public class ResourceExceptionHandler {
 
-    @ExceptionHandler(NotFoundException.class)
+    @ExceptionHandler(RecordNotFoundException.class)
+    @ApiResponse(responseCode = "404", description = "Record not found", content = @Content(schema = @Schema(hidden = true)))
     @ResponseStatus(code = HttpStatus.NOT_FOUND)
-    @ApiResponse(responseCode = "404", description = "Not found", content = @Content(schema = @Schema(hidden = true)))
-    public ApiError handleNotFoundException(NotFoundException ex) {
-	log.error(ex.getMessage(),ex);
+    public ApiError handleNotFoundException(RecordNotFoundException ex) {
+	log.error(ex.getMessage(), ex);
 	return new ApiError(HttpStatus.NOT_FOUND.value(), ex.getMessage(), new Date());
     }
 
     @ExceptionHandler(Exception.class)
     @ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR)
-    @ApiResponse(responseCode = "500", description = "Unexpected Error", content = @Content(schema = @Schema(hidden = true))) 
-    public ApiError handlerError(final Exception ex) {
-	log.error(ex.getMessage(),ex);
+    @ApiResponse(responseCode = "500", description = "Unexpected Error", content = @Content(schema = @Schema(hidden = true)))
+    public ApiError handleServerError(Exception ex) {
+	log.error(ex.getMessage(), ex);
 	return new ApiError(HttpStatus.INTERNAL_SERVER_ERROR.value(),
 		ApiError.UNEXPECTED_ERROR.concat(":").concat(ex.getMessage()), new Date());
     }

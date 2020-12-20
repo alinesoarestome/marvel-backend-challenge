@@ -34,7 +34,7 @@ import com.alineasoarestome.challenge.domain.Serie;
 import com.alineasoarestome.challenge.domain.Story;
 import com.alineasoarestome.challenge.domain.enums.Format;
 import com.alineasoarestome.challenge.domain.enums.Type;
-import com.alineasoarestome.challenge.exception.NotFoundException;
+import com.alineasoarestome.challenge.exception.RecordNotFoundException;
 import com.alineasoarestome.challenge.repository.CharacterRepository;
 import com.alineasoarestome.challenge.repository.ComicRepository;
 import com.alineasoarestome.challenge.repository.EventRepository;
@@ -100,11 +100,11 @@ public class CharacterResourceTests {
 
 	when(characterRepository.findById(1)).thenReturn(Optional.of(character));
 
-	mockMvc.perform(get("/v1/public/characters/{id}", 1))
+	mockMvc.perform(get("/v1/public/characters/{id}", 5))
 		.andDo(print())
 		.andExpect(status().isNotFound())
 		.andExpect(content().contentType(MediaType.APPLICATION_JSON))
-		.andExpect(result -> assertTrue(result.getResolvedException() instanceof NotFoundException));
+		.andExpect(result -> assertTrue(result.getResolvedException() instanceof RecordNotFoundException));
     }
     
     
