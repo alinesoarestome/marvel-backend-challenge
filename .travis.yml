@@ -10,3 +10,6 @@ after_success:
   
 script:  
   mvn install -DskipTests=false -Dmaven.javadoc.skip=true -B -V
+
+before_install:
+  - chmod +x mvnw
