@@ -38,7 +38,7 @@ Spring Boot-based project to reimplement characters endpoints from Marvel API.
   ```
   - API Documentation
   
-    Swagger interface to access the endpoints: ```http://localhost:3000/swagger-ui/index.html```
+    Swagger interface to access the endpoints: ```http://localhost:3000/swagger-ui.html```
     
   - Accessing temporary database 
   
